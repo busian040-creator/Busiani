@@ -1,13 +1,6 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BUSIAN | Local Commerce, Connected</title>
-<link rel="stylesheet" href="busian.css">
-</head>
-<body>
-<header><a class="brand" href="#">◉ BUSIAN</a><nav><button onclick="show('home')">Home</button><button onclick="show('shop')">Shop</button><button onclick="show('orders')">Orders</button><button onclick="register('customer')">Sign up</button></nav></header>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1625"><title>BUSIAN | Local Commerce, Connected</title><link rel="stylesheet" href="busian.css"></head><body>
+<header><a class="logo" href="#" onclick="show("home");return false;"><img src="assets/busian-logo.svg" alt="BUSIAN"></a><nav><button onclick="show("home")">⌂ Home</button><button onclick="show("shop")">⌕ Shop</button><button onclick="show("orders")">▣ Orders</button><button onclick="show("account")">◯ Account</button></nav><button class="join" onclick="roles()">Join BUSIAN</button></header>
 <main id="app"></main>
-<footer><b>BUSIAN</b><span>Local commerce, connected.</span></footer>
-<script src="data.js"></script><script src="busian.js"></script>
-</body></html>
+<nav class="mobile"><button onclick="show("home")">⌂<small>Home</small></button><button onclick="show("shop")">⌕<small>Shop</small></button><button onclick="show("orders")">▣<small>Orders</small></button><button onclick="show("account")">◯<small>Account</small></button></nav>
+<footer><img src="assets/busian-logo-light.svg" alt="BUSIAN"><p>Local commerce, connected.</p><small>Discover local businesses, compare local prices and get what you need delivered.</small></footer>
+<script src="data.js"></script><script src="busian.js"></script></body></html>
