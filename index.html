@@ -1,86 +1,274 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0b1625">
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b1625"
+  >
+
+  <meta
+    name="description"
+    content="BUSIAN — Discover local businesses, compare local prices and shop with confidence."
+  >
 
   <title>BUSIAN | Local Commerce, Connected</title>
 
-  <link rel="stylesheet" href="css/busian.css">
+  <link
+    rel="stylesheet"
+    href="css/busian.css"
+  >
 </head>
 
 <body>
 
-  <header>
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <header class="site-header">
 
-    <a class="logo" href="#" onclick="show('home'); return false;">
-      <img src="Assets/busian-logo.svg" alt="BUSIAN">
-    </a>
+    <div class="header-inner">
 
-    <nav>
-      <button onclick="show('home')">⌂ Home</button>
-      <button onclick="show('shop')">⌕ Shop</button>
-      <button onclick="show('orders')">▣ Orders</button>
-      <button onclick="show('account')">◯ Account</button>
-    </nav>
+      <!-- LOGO -->
+      <a
+        class="logo"
+        href="#"
+        onclick="show('home'); return false;"
+        aria-label="BUSIAN Home"
+      >
+        <img
+          src="Assets/file_00000000b86c820bb3cd5718c5a5cd39.png"
+          alt="BUSIAN"
+        >
+      </a>
 
-    <button class="join" onclick="roles()">
-      Join BUSIAN
-    </button>
+      <!-- DESKTOP NAVIGATION -->
+      <nav
+        class="desktop-nav"
+        aria-label="Main navigation"
+      >
+
+        <button
+          type="button"
+          onclick="show('home')"
+        >
+          Home
+        </button>
+
+        <button
+          type="button"
+          onclick="show('shop')"
+        >
+          Shop
+        </button>
+
+        <button
+          type="button"
+          onclick="show('orders')"
+        >
+          Orders
+        </button>
+
+        <button
+          type="button"
+          onclick="show('account')"
+        >
+          Account
+        </button>
+
+      </nav>
+
+      <!-- JOIN BUTTON -->
+      <button
+        class="join-button"
+        type="button"
+        onclick="roles()"
+      >
+        Join BUSIAN
+      </button>
+
+    </div>
 
   </header>
 
 
-  <main id="app"></main>
+  <!-- =========================
+       MAIN APPLICATION
+  ========================== -->
+  <main
+    id="app"
+    class="app-container"
+  ></main>
 
 
-  <nav class="mobile">
+  <!-- =========================
+       MOBILE NAVIGATION
+  ========================== -->
+  <nav
+    class="mobile-nav"
+    aria-label="Mobile navigation"
+  >
 
-    <button onclick="show('home')">
-      ⌂
+    <button
+      type="button"
+      onclick="show('home')"
+    >
+      <span class="mobile-icon">⌂</span>
       <small>Home</small>
     </button>
 
-    <button onclick="show('shop')">
-      ⌕
+    <button
+      type="button"
+      onclick="show('shop')"
+    >
+      <span class="mobile-icon">⌕</span>
       <small>Shop</small>
     </button>
 
-    <button onclick="show('orders')">
-      ▣
+    <button
+      type="button"
+      onclick="show('orders')"
+    >
+      <span class="mobile-icon">▣</span>
       <small>Orders</small>
     </button>
 
-    <button onclick="show('account')">
-      ◯
+    <button
+      type="button"
+      onclick="show('account')"
+    >
+      <span class="mobile-icon">◯</span>
       <small>Account</small>
     </button>
 
   </nav>
 
 
-  <footer>
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer class="site-footer">
 
-    <img src="Assets/busian-logo-light.svg" alt="BUSIAN">
+    <div class="footer-inner">
 
-    <p>
-      Local commerce, connected.
-    </p>
+      <div class="footer-brand">
 
-    <small>
-      Discover local businesses, compare local prices
-      and get what you need delivered.
-    </small>
+        <img
+          src="Assets/file_00000000b86c820bb3cd5718c5a5cd39.png"
+          alt="BUSIAN"
+        >
+
+        <p>
+          Local commerce, connected.
+        </p>
+
+        <span>
+          Discover local businesses, compare local prices
+          and get what you need delivered.
+        </span>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>BUSIAN</h4>
+
+        <a href="#" onclick="show('home'); return false;">
+          Home
+        </a>
+
+        <a href="#" onclick="show('shop'); return false;">
+          Shop
+        </a>
+
+        <a href="#" onclick="show('orders'); return false;">
+          Orders
+        </a>
+
+        <a href="#" onclick="show('account'); return false;">
+          Account
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Join</h4>
+
+        <a
+          href="#"
+          onclick="roles(); return false;"
+        >
+          Become a Merchant
+        </a>
+
+        <a
+          href="#"
+          onclick="roles(); return false;"
+        >
+          Become a Rider
+        </a>
+
+        <a
+          href="#"
+          onclick="roles(); return false;"
+        >
+          Become a Partner
+        </a>
+
+        <a
+          href="#"
+          onclick="roles(); return false;"
+        >
+          Become a Field Agent
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Trust</h4>
+
+        <span>Verified merchants</span>
+        <span>Secure payments</span>
+        <span>Tracked delivery</span>
+        <span>Local prices</span>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 BUSIAN. All rights reserved.
+      </span>
+
+      <span>
+        Local commerce, connected.
+      </span>
+
+    </div>
 
   </footer>
 
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
 
   <script src="Js/data.js"></script>
   <script src="Js/busian.js"></script>
 
 </body>
-
-      </html>
-      
+</html>
