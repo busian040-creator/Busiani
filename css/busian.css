@@ -1,1265 +1,986 @@
-
-/* =========================================================
-   BUSIAN — MARKETPLACE DESIGN SYSTEM
-   ========================================================= */
-
-:root {
-  --navy: #0b1625;
-  --navy-2: #12243a;
-  --accent: #16a085;
-  --accent-dark: #0f806a;
-  --accent-soft: #e9f8f4;
-
-  --white: #ffffff;
-  --bg: #f6f8fa;
-  --surface: #ffffff;
-  --text: #17212f;
-  --muted: #687585;
-  --border: #e7ebef;
-
-  --success: #17845f;
-  --warning: #c47b17;
-
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 22px;
-
-  --shadow-sm: 0 4px 16px rgba(11, 22, 37, 0.06);
-  --shadow-md: 0 10px 30px rgba(11, 22, 37, 0.09);
-
-  --max-width: 1240px;
-}
-
-
-/* =========================================================
-   RESET
-   ========================================================= */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Arial,
-    sans-serif;
-
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.5;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid var(--border);
-
-  backdrop-filter: blur(14px);
-}
-
-.header-inner {
-  width: min(var(--max-width), calc(100% - 40px));
-  min-height: 76px;
-  margin: auto;
-
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.logo img {
-  display: block;
-  width: auto;
-  height: 42px;
-  max-width: 155px;
-  object-fit: contain;
-}
-
-.desktop-nav {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-left: auto;
-}
-
-.desktop-nav button {
-  border: 0;
-  background: transparent;
-
-  color: #455365;
-  font-weight: 600;
-
-  padding: 10px 14px;
-  border-radius: 10px;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
-}
-
-.desktop-nav button:hover {
-  color: var(--navy);
-  background: #f1f4f6;
-}
-
-.join-button {
-  border: 0;
-  border-radius: 11px;
-
-  padding: 11px 18px;
-
-  background: var(--navy);
-  color: white;
-
-  font-weight: 700;
-  white-space: nowrap;
-
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease;
-}
-
-.join-button:hover {
-  background: var(--navy-2);
-  transform: translateY(-1px);
-}
-
-
-/* =========================================================
-   MAIN
-   ========================================================= */
-
-.app-container {
-  width: 100%;
-  min-height: 600px;
-}
-
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero {
-  width: min(var(--max-width), calc(100% - 40px));
-  margin: 28px auto 0;
-
-  min-height: 360px;
-
-  padding: 58px;
-
-  border-radius: 28px;
-
-  background:
-    radial-gradient(
-      circle at 85% 20%,
-      rgba(22, 160, 133, 0.35),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
-      #0b1625 0%,
-      #10243a 55%,
-      #12384a 100%
-    );
-
-  color: white;
-
-  position: relative;
-  overflow: hidden;
-
-  display: flex;
-  align-items: center;
-}
-
-.hero::after {
-  content: "";
-
-  position: absolute;
-  width: 300px;
-  height: 300px;
-
-  right: -100px;
-  bottom: -130px;
-
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.hero-content {
-  max-width: 690px;
-  position: relative;
-  z-index: 2;
-}
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 7px 12px;
-
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 999px;
-
-  background: rgba(255,255,255,0.07);
-
-  color: #c9eee6;
-  font-size: 13px;
-  font-weight: 700;
-
-  margin-bottom: 18px;
-}
-
-.hero h1 {
-  font-size: clamp(36px, 5vw, 62px);
-  line-height: 1.03;
-  letter-spacing: -2px;
-  margin-bottom: 18px;
-}
-
-.hero p {
-  max-width: 620px;
-
-  color: #d4dde7;
-
-  font-size: 17px;
-  line-height: 1.7;
-
-  margin-bottom: 26px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.hero-primary {
-  border: 0;
-  border-radius: 12px;
-
-  background: var(--accent);
-  color: white;
-
-  padding: 13px 20px;
-
-  font-weight: 800;
-}
-
-.hero-secondary {
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 12px;
-
-  background: rgba(255,255,255,0.07);
-  color: white;
-
-  padding: 13px 20px;
-
-  font-weight: 700;
-}
-
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-.search-wrap {
-  width: min(var(--max-width), calc(100% - 40px));
-  margin: -28px auto 0;
-
-  position: relative;
-  z-index: 10;
-}
-
-.search-box {
-  background: white;
-  border: 1px solid var(--border);
-
-  border-radius: 16px;
-
-  box-shadow: var(--shadow-md);
-
-  padding: 7px;
-
-  display: flex;
-  align-items: center;
-}
-
-.search-box input {
-  flex: 1;
-
-  min-width: 0;
-
-  border: 0;
-  outline: 0;
-
-  padding: 14px 16px;
-
-  color: var(--text);
-  background: transparent;
-
-  font-size: 15px;
-}
-
-.search-box input::placeholder {
-  color: #8a96a3;
-}
-
-.search-box button {
-  border: 0;
-  border-radius: 11px;
-
-  background: var(--navy);
-  color: white;
-
-  padding: 12px 19px;
-
-  font-weight: 700;
-}
-
-
-/* =========================================================
-   CONTENT SECTIONS
-   ========================================================= */
-
-.section {
-  width: min(var(--max-width), calc(100% - 40px));
-  margin: 52px auto 0;
-}
-
-.section-header {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 20px;
-
-  margin-bottom: 20px;
-}
-
-.section-title h2 {
-  font-size: 25px;
-  letter-spacing: -0.5px;
-}
-
-.section-title p {
-  color: var(--muted);
-  font-size: 14px;
-  margin-top: 4px;
-}
-
-.section-link {
-  color: var(--accent-dark);
-  font-size: 14px;
-  font-weight: 800;
-}
-
-
-/* =========================================================
-   CATEGORY SECTION
-   ========================================================= */
-
-.category-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(5, minmax(0, 1fr));
-
-  gap: 16px;
-}
-
-.category-card {
-  min-height: 190px;
-
-  position: relative;
-  overflow: hidden;
-
-  border-radius: 20px;
-
-  background: white;
-  border: 1px solid var(--border);
-
-  box-shadow: var(--shadow-sm);
-
-  cursor: pointer;
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.category-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-.category-card-image {
-  position: absolute;
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  transition: transform 0.35s ease;
-}
-
-.category-card:hover .category-card-image {
-  transform: scale(1.05);
-}
-
-.category-card-overlay {
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      to top,
-      rgba(5, 14, 24, 0.82),
-      rgba(5, 14, 24, 0.12) 70%
-    );
-}
-
-.category-card-content {
-  position: absolute;
-
-  left: 18px;
-  right: 18px;
-  bottom: 17px;
-
-  color: white;
-
-  z-index: 2;
-}
-
-.category-card-content h3 {
-  font-size: 17px;
-  font-weight: 800;
-}
-
-.category-card-content span {
-  display: block;
-
-  margin-top: 3px;
-
-  color: rgba(255,255,255,0.75);
-
-  font-size: 12px;
-}
-
-
-/* =========================================================
-   PRODUCT GRID
-   ========================================================= */
-
-.product-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
-
-  gap: 18px;
-}
-
-.product-card {
-  overflow: hidden;
-
-  background: white;
-
-  border: 1px solid var(--border);
-  border-radius: 17px;
-
-  box-shadow: var(--shadow-sm);
-
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-}
-
-.product-image-wrap {
-  position: relative;
-
-  aspect-ratio: 1 / 0.88;
-
-  background: #f1f3f5;
-
-  overflow: hidden;
-}
-
-.product-image {
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  display: block;
-
-  transition: transform 0.3s ease;
-}
-
-.product-card:hover .product-image {
-  transform: scale(1.035);
-}
-
-.product-badge {
-  position: absolute;
-
-  top: 11px;
-  left: 11px;
-
-  padding: 5px 8px;
-
-  border-radius: 7px;
-
-  background: rgba(255,255,255,0.94);
-
-  color: var(--accent-dark);
-
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.product-info {
-  padding: 15px;
-}
-
-.product-category {
-  color: var(--muted);
-
-  font-size: 11px;
-  font-weight: 700;
-
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.product-name {
-  margin-top: 5px;
-
-  font-size: 15px;
-  font-weight: 750;
-
-  color: var(--text);
-}
-
-.product-merchant {
-  margin-top: 5px;
-
-  color: var(--muted);
-
-  font-size: 12px;
-}
-
-.product-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 8px;
-
-  margin-top: 13px;
-}
-
-.product-price {
-  font-size: 16px;
-  font-weight: 850;
-  color: var(--navy);
-}
-
-.product-rating {
-  font-size: 12px;
-  color: var(--warning);
-}
-
-.product-actions {
-  display: flex;
-  gap: 8px;
-
-  margin-top: 13px;
-}
-
-.product-actions button {
-  flex: 1;
-
-  border: 0;
-  border-radius: 9px;
-
-  padding: 9px 10px;
-
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.add-cart {
-  background: var(--accent);
-  color: white;
-}
-
-.view-product {
-  background: #eef2f4;
-  color: var(--navy);
-}
-
-
-/* =========================================================
-   TRUST STRIP
-   ========================================================= */
-
-.trust-strip {
-  width: min(var(--max-width), calc(100% - 40px));
-
-  margin: 45px auto 0;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap: 12px;
-}
-
-.trust-card {
-  background: white;
-
-  border: 1px solid var(--border);
-  border-radius: 15px;
-
-  padding: 18px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 12px;
-}
-
-.trust-icon {
-  width: 40px;
-  height: 40px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 11px;
-
-  background: var(--accent-soft);
-
-  color: var(--accent-dark);
-
-  font-weight: 900;
-}
-
-.trust-card strong {
-  display: block;
-
-  font-size: 13px;
-}
-
-.trust-card span {
-  display: block;
-
-  color: var(--muted);
-
-  font-size: 11px;
-
-  margin-top: 2px;
-}
-
-
-/* =========================================================
-   ROLE SELECTION
-   ========================================================= */
-
-.role-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 16px;
-
-  width: min(900px, 100%);
-  margin: 30px auto;
-}
-
-.role-card {
-  padding: 24px;
-
-  background: white;
-
-  border: 1px solid var(--border);
-  border-radius: 18px;
-
-  box-shadow: var(--shadow-sm);
-
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.role-card:hover {
-  transform: translateY(-3px);
-  border-color: #b9ddd4;
-}
-
-.role-card h3 {
-  margin-bottom: 6px;
-}
-
-.role-card p {
-  color: var(--muted);
-
-  font-size: 13px;
-
-  margin-bottom: 17px;
-}
-
-.role-card button {
-  width: 100%;
-
-  border: 0;
-  border-radius: 9px;
-
-  background: var(--navy);
-  color: white;
-
-  padding: 10px;
-
-  font-weight: 700;
-}
-
-
-/* =========================================================
-   EMPTY / INFO STATES
-   ========================================================= */
-
-.empty-state {
-  padding: 55px 20px;
-
-  text-align: center;
-
-  background: white;
-
-  border: 1px dashed #d7dee5;
-  border-radius: 18px;
-}
-
-.empty-state h3 {
-  margin-bottom: 6px;
-}
-
-.empty-state p {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.site-footer {
-  margin-top: 75px;
-
-  background: var(--navy);
-
-  color: white;
-}
-
-.footer-inner {
-  width: min(var(--max-width), calc(100% - 40px));
-
-  margin: auto;
-
-  padding: 55px 0;
-
-  display: grid;
-
-  grid-template-columns:
-    2fr 1fr 1fr 1fr;
-
-  gap: 45px;
-}
-
-.footer-brand img {
-  width: auto;
-  max-width: 150px;
-  height: 42px;
-
-  object-fit: contain;
-
-  margin-bottom: 13px;
-}
-
-.footer-brand p {
-  font-weight: 700;
-
-  margin-bottom: 7px;
-}
-
-.footer-brand span {
-  display: block;
-
-  max-width: 320px;
-
-  color: #aeb9c6;
-
-  font-size: 13px;
-
-  line-height: 1.6;
-}
-
-.footer-column {
-  display: flex;
-  flex-direction: column;
-
-  gap: 10px;
-}
-
-.footer-column h4 {
-  font-size: 13px;
-
-  margin-bottom: 4px;
-}
-
-.footer-column a,
-.footer-column span {
-  color: #aeb9c6;
-
-  font-size: 13px;
-
-  transition: color 0.2s ease;
-}
-
-.footer-column a:hover {
-  color: white;
-}
-
-.footer-bottom {
-  width: min(var(--max-width), calc(100% - 40px));
-
-  margin: auto;
-
-  padding: 18px 0;
-
-  border-top: 1px solid rgba(255,255,255,0.09);
-
-  display: flex;
-
-  justify-content: space-between;
-
-  gap: 20px;
-
-  color: #8290a0;
-
-  font-size: 11px;
-}
-
-
-/* =========================================================
-   MOBILE NAV
-   ========================================================= */
-
-.mobile-nav {
-  display: none;
-}
-
-
-/* =========================================================
-   RESPONSIVE — TABLET
-   ========================================================= */
-
-@media (max-width: 1000px) {
-
-  .category-grid {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+(() => {
+
+  const data = window.BUSIAN_DATA || {
+    categories: [],
+    products: []
+  };
+
+  const app = document.getElementById("app");
+
+  let currentCategory = "all";
+  let currentQuery = "";
+  let cart = [];
+
+  /* =====================================================
+     HELPERS
+  ===================================================== */
+
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
-  .product-grid {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+  function money(price) {
+    if (price === null || price === undefined || price === "") {
+      return "Price available in store";
+    }
+
+    return "KSh " + Number(price).toLocaleString();
   }
 
-  .trust-strip {
-    grid-template-columns:
-      repeat(2, 1fr);
+  function categoryImage(category) {
+
+    const images = {
+      beauty: "Assets/1 (1).jpg",
+      electronics: "Assets/1 (6).jpg",
+      supermarket: "Assets/1.jpg",
+      fashion: "Assets/1 (5).jpg",
+      home: "Assets/Bodyshop.png"
+    };
+
+    return images[category] || "";
   }
 
-  .footer-inner {
-    grid-template-columns:
-      1.5fr 1fr 1fr;
+  function categoryName(category) {
+
+    const names = {
+      beauty: "Beauty & Personal Care",
+      electronics: "Electronics",
+      supermarket: "Supermarket",
+      fashion: "Fashion",
+      home: "Home & Furniture"
+    };
+
+    return names[category] || category;
   }
 
-}
+  /* =====================================================
+     PUBLIC NAVIGATION
+  ===================================================== */
+
+  window.show = function(section) {
+
+    if (section === "home") {
+      renderHome();
+      return;
+    }
+
+    if (section === "shop") {
+      renderShop();
+      return;
+    }
+
+    if (section === "orders") {
+      renderOrders();
+      return;
+    }
+
+    if (section === "account") {
+      renderAccount();
+      return;
+    }
+  };
 
 
-/* =========================================================
-   RESPONSIVE — MOBILE
-   ========================================================= */
+  /* =====================================================
+     JOIN BUSIAN
+  ===================================================== */
 
-@media (max-width: 760px) {
+  window.roles = function() {
 
-  body {
-    padding-bottom: 70px;
-  }
+    app.innerHTML = `
+      <section class="section">
 
-  .header-inner {
-    width: calc(100% - 28px);
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Join BUSIAN</h2>
+            <p>Choose how you want to participate in local commerce.</p>
+          </div>
+        </div>
 
-    min-height: 66px;
+        <div class="role-grid">
 
-    gap: 10px;
-  }
+          <div class="role-card">
+            <h3>Customer</h3>
+            <p>Discover products, compare prices and order locally.</p>
+            <button onclick="roleSelected('Customer')">
+              Continue
+            </button>
+          </div>
 
-  .logo img {
-    height: 35px;
-    max-width: 125px;
-  }
+          <div class="role-card">
+            <h3>Merchant</h3>
+            <p>Put your business and products in front of local customers.</p>
+            <button onclick="roleSelected('Merchant')">
+              Join as Merchant
+            </button>
+          </div>
 
-  .desktop-nav {
-    display: none;
-  }
+          <div class="role-card">
+            <h3>Rider</h3>
+            <p>Help businesses and customers complete local deliveries.</p>
+            <button onclick="roleSelected('Rider')">
+              Join as Rider
+            </button>
+          </div>
 
-  .join-button {
-    margin-left: auto;
+          <div class="role-card">
+            <h3>Partner</h3>
+            <p>Help grow BUSIAN and earn from eligible activity.</p>
+            <button onclick="roleSelected('Partner')">
+              Join as Partner
+            </button>
+          </div>
 
-    padding: 9px 12px;
+          <div class="role-card">
+            <h3>Field Agent</h3>
+            <p>Help local businesses digitize and join the marketplace.</p>
+            <button onclick="roleSelected('Field Agent')">
+              Join as Agent
+            </button>
+          </div>
 
-    font-size: 12px;
+          <div class="role-card">
+            <h3>Service Provider</h3>
+            <p>List local services and connect with customers.</p>
+            <button onclick="roleSelected('Service Provider')">
+              Get started
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+    `;
+  };
+
+
+  window.roleSelected = function(role) {
+
+    app.innerHTML = `
+      <section class="section">
+
+        <div class="empty-state">
+
+          <h3>${escapeHTML(role)} registration</h3>
+
+          <p>
+            Registration will connect to the BUSIAN account system
+            when the platform backend is activated.
+          </p>
+
+          <br>
+
+          <button
+            class="hero-primary"
+            onclick="show('home')"
+          >
+            Return to BUSIAN
+          </button>
+
+        </div>
+
+      </section>
+    `;
+  };
+
+
+  /* =====================================================
+     HOME
+  ===================================================== */
+
+  window.renderHome = function() {
+
+    const categories = data.categories || [];
+    const products = data.products || [];
+
+    app.innerHTML = `
+
+      <!-- HERO -->
+
+      <section class="hero">
+
+        <div class="hero-content">
+
+          <div class="hero-eyebrow">
+            BUSIAN LOCAL MARKETPLACE
+          </div>
+
+          <h1>
+            Find it locally.<br>
+            Buy it confidently.
+          </h1>
+
+          <p>
+            Discover local businesses, compare local products
+            and get what you need delivered.
+          </p>
+
+          <div class="hero-actions">
+
+            <button
+              class="hero-primary"
+              onclick="show('shop')"
+            >
+              Start shopping
+            </button>
+
+            <button
+              class="hero-secondary"
+              onclick="roles()"
+            >
+              Join BUSIAN
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SEARCH -->
+
+      <div class="search-wrap">
+
+        <div class="search-box">
+
+          <input
+            id="busianSearch"
+            type="search"
+            placeholder="Search products, stores or services..."
+            autocomplete="off"
+            oninput="filterProducts(this.value)"
+          >
+
+          <button
+            type="button"
+            onclick="show('shop')"
+          >
+            Search
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- CATEGORIES -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <div class="section-title">
+
+            <h2>Shop by category</h2>
+
+            <p>
+              Explore products and businesses available locally.
+            </p>
+
+          </div>
+
+          <button
+            class="section-link"
+            onclick="show('shop')"
+            style="
+              border:0;
+              background:transparent;
+              cursor:pointer;
+            "
+          >
+            View all →
+          </button>
+
+        </div>
+
+
+        <div class="category-grid">
+
+          ${categories.map((category) => {
+
+            const id = category.id;
+
+            const image =
+              category.image ||
+              categoryImage(id);
+
+            const name =
+              categoryName(id);
+
+            return `
+
+              <article
+                class="category-card"
+                onclick="showCategory('${escapeHTML(id)}')"
+              >
+
+                ${
+                  image
+                    ? `
+                      <img
+                        class="category-card-image"
+                        src="${escapeHTML(image)}"
+                        alt="${escapeHTML(name)}"
+                        loading="lazy"
+                      >
+                    `
+                    : ""
+                }
+
+                <div class="category-card-overlay"></div>
+
+                <div class="category-card-content">
+
+                  <h3>
+                    ${escapeHTML(name)}
+                  </h3>
+
+                  <span>
+                    Explore locally →
+                  </span>
+
+                </div>
+
+              </article>
+
+            `;
+
+          }).join("")}
+
+        </div>
+
+      </section>
+
+
+      <!-- TRUST -->
+
+      <section class="trust-strip">
+
+        <div class="trust-card">
+
+          <div class="trust-icon">
+            ✓
+          </div>
+
+          <div>
+            <strong>Verified merchants</strong>
+            <span>Know who you're buying from</span>
+          </div>
+
+        </div>
+
+
+        <div class="trust-card">
+
+          <div class="trust-icon">
+            K
+          </div>
+
+          <div>
+            <strong>Local prices</strong>
+            <span>Compare what's available nearby</span>
+          </div>
+
+        </div>
+
+
+        <div class="trust-card">
+
+          <div class="trust-icon">
+            →
+          </div>
+
+          <div>
+            <strong>Tracked delivery</strong>
+            <span>Follow your order journey</span>
+          </div>
+
+        </div>
+
+
+        <div class="trust-card">
+
+          <div class="trust-icon">
+            ★
+          </div>
+
+          <div>
+            <strong>Shop with confidence</strong>
+            <span>Reviews and merchant information</span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- POPULAR -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <div class="section-title">
+
+            <h2>Popular on BUSIAN</h2>
+
+            <p>
+              Products people are discovering on the marketplace.
+            </p>
+
+          </div>
+
+          <button
+            class="section-link"
+            onclick="show('shop')"
+            style="
+              border:0;
+              background:transparent;
+              cursor:pointer;
+            "
+          >
+            View all →
+          </button>
+
+        </div>
+
+
+        <div class="product-grid">
+
+          ${products.slice(0, 8).map(productCard).join("")}
+
+        </div>
+
+      </section>
+
+
+      <!-- NEW ON BUSIAN -->
+
+      <section class="section">
+
+        <div class="section-header">
+
+          <div class="section-title">
+
+            <h2>New on BUSIAN</h2>
+
+            <p>
+              More local businesses and products are coming.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="empty-state">
+
+          <h3>More local businesses are joining</h3>
+
+          <p>
+            BUSIAN is being built to bring more local merchants,
+            products and services into one marketplace.
+          </p>
+
+        </div>
+
+      </section>
+
+    `;
+  };
+
+
+  /* =====================================================
+     PRODUCT CARD
+  ===================================================== */
+
+  function productCard(product) {
+
+    return `
+
+      <article class="product-card">
+
+        <div class="product-image-wrap">
+
+          <img
+            class="product-image"
+            src="${escapeHTML(product.image || "")}"
+            alt="${escapeHTML(product.name)}"
+            loading="lazy"
+          >
+
+          ${
+            product.available
+              ? `
+                <span class="product-badge">
+                  Available
+                </span>
+              `
+              : `
+                <span class="product-badge">
+                  Check availability
+                </span>
+              `
+          }
+
+        </div>
+
+
+        <div class="product-info">
+
+          <div class="product-category">
+            ${escapeHTML(product.category)}
+          </div>
+
+          <div class="product-name">
+            ${escapeHTML(product.name)}
+          </div>
+
+          <div class="product-merchant">
+            ${escapeHTML(product.merchant || "Local merchant")}
+          </div>
+
+
+          <div class="product-meta">
+
+            <span class="product-price">
+              ${money(product.price)}
+            </span>
+
+            <span class="product-rating">
+              ★ ${escapeHTML(product.rating || "New")}
+            </span>
+
+          </div>
+
+
+          <div class="product-actions">
+
+            <button
+              class="add-cart"
+              onclick="addToCart('${escapeHTML(product.id)}')"
+            >
+              Add to cart
+            </button>
+
+            <button
+              class="view-product"
+              onclick="openProduct('${escapeHTML(product.id)}')"
+            >
+              View
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `;
   }
 
 
-  /* HERO */
+  /* =====================================================
+     SHOP
+  ===================================================== */
 
-  .hero {
-    width: calc(100% - 24px);
+  window.renderShop = function() {
 
-    margin-top: 14px;
+    const categories = data.categories || [];
 
-    min-height: 390px;
+    app.innerHTML = `
 
-    padding: 30px 22px;
+      <section class="section">
 
-    border-radius: 22px;
-  }
+        <div class="section-header">
 
-  .hero h1 {
-    font-size: 39px;
-    letter-spacing: -1.4px;
-  }
+          <div class="section-title">
 
-  .hero p {
-    font-size: 14px;
-  }
+            <h2>Shop</h2>
 
+            <p>
+              Discover products, merchants and local offers.
+            </p>
 
-  /* SEARCH */
+          </div>
 
-  .search-wrap {
-    width: calc(100% - 24px);
+        </div>
 
-    margin-top: -25px;
-  }
 
-  .search-box {
-    padding: 5px;
-  }
+        <div class="search-box">
 
-  .search-box input {
-    padding: 12px;
-    font-size: 13px;
-  }
+          <input
+            id="shopSearch"
+            type="search"
+            placeholder="Search products..."
+            value="${escapeHTML(currentQuery)}"
+            oninput="filterProducts(this.value)"
+          >
 
-  .search-box button {
-    padding: 10px 13px;
-    font-size: 12px;
-  }
+          <button
+            type="button"
+            onclick="filterProducts(
+              document.getElementById('shopSearch').value
+            )"
+          >
+            Search
+          </button>
 
+        </div>
 
-  /* SECTIONS */
 
-  .section {
-    width: calc(100% - 24px);
+        <div
+          class="category-grid"
+          style="margin-top:25px;"
+        >
 
-    margin-top: 38px;
-  }
+          <article
+            class="category-card"
+            onclick="showCategory('all')"
+          >
 
-  .section-header {
-    align-items: center;
+            <div
+              style="
+                position:absolute;
+                inset:0;
+                background:
+                  linear-gradient(
+                    135deg,
+                    #0b1625,
+                    #163b4b
+                  );
+              "
+            ></div>
 
-    margin-bottom: 14px;
-  }
+            <div class="category-card-content">
 
-  .section-title h2 {
-    font-size: 21px;
-  }
+              <h3>
+                All products
+              </h3>
 
+              <span>
+                Browse everything →
+              </span>
 
-  /* CATEGORY HORIZONTAL SCROLL */
+            </div>
 
-  .category-grid {
-    display: flex;
+          </article>
 
-    overflow-x: auto;
 
-    gap: 12px;
+          ${categories.map(category => {
 
-    padding: 3px 2px 10px;
+            const id = category.id;
+            const image =
+              category.image ||
+              categoryImage(id);
 
-    scroll-snap-type: x mandatory;
+            return `
 
-    scrollbar-width: none;
-  }
+              <article
+                class="category-card"
+                onclick="showCategory('${escapeHTML(id)}')"
+              >
 
-  .category-grid::-webkit-scrollbar {
-    display: none;
-  }
+                ${
+                  image
+                    ? `
+                      <img
+                        class="category-card-image"
+                        src="${escapeHTML(image)}"
+                        alt="${escapeHTML(categoryName(id))}"
+                        loading="lazy"
+                      >
+                    `
+                    : ""
+                }
 
-  .category-card {
-    flex: 0 0 155px;
+                <div class="category-card-overlay"></div>
 
-    min-height: 170px;
+                <div class="category-card-content">
 
-    scroll-snap-align: start;
+                  <h3>
+                    ${escapeHTML(categoryName(id))}
+                  </h3>
 
-    border-radius: 17px;
-  }
+                  <span>
+                    Explore →
+                  </span>
 
-  .category-card-content {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-  }
+                </div>
 
-  .category-card-content h3 {
-    font-size: 15px;
-  }
+              </article>
 
+            `;
 
-  /* PRODUCTS */
+          }).join("")}
 
-  .product-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+        </div>
 
-    gap: 11px;
-  }
 
-  .product-info {
-    padding: 12px;
-  }
+        <div
+          id="shopProducts"
+          style="margin-top:40px;"
+        ></div>
 
-  .product-name {
-    font-size: 13px;
-  }
+      </section>
 
-  .product-merchant {
-    font-size: 11px;
-  }
+    `;
 
-  .product-price {
-    font-size: 14px;
-  }
+    renderShopProducts();
+  };
 
-  .product-actions button {
-    padding: 8px 5px;
 
-    font-size: 10px;
-  }
+  /* =====================================================
+     SHOP PRODUCTS
+  ===================================================== */
 
+  function renderShopProducts() {
 
-  /* TRUST */
+    const container =
+      document.getElementById("shopProducts");
 
-  .trust-strip {
-    width: calc(100% - 24px);
+    if (!container) {
+      return;
+    }
 
-    grid-template-columns:
-      repeat(2, 1fr);
+    let products = [...(data.products || [])];
 
-    gap: 9px;
-  }
+    if (currentCategory !== "all") {
 
-  .trust-card {
-    padding: 13px;
-
-    gap: 8px;
-  }
-
-  .trust-icon {
-    width: 34px;
-    height: 34px;
-  }
-
-  .trust-card strong {
-    font-size: 11px;
-  }
-
-  .trust-card span {
-    font-size: 9px;
-  }
-
-
-  /* ROLES */
-
-  .role-grid {
-    grid-template-columns:
-      1fr;
-
-    width: calc(100% - 24px);
-  }
-
-
-  /* FOOTER */
-
-  .footer-inner {
-    width: calc(100% - 28px);
-
-    grid-template-columns:
-      1fr 1fr;
-
-    gap: 32px 20px;
-
-    padding: 40px 0;
-  }
-
-  .footer-brand {
-    grid-column: 1 / -1;
-  }
-
-  .footer-bottom {
-    width: calc(100% - 28px);
-
-    flex-direction: column;
-
-    gap: 5px;
-  }
-
-
-  /* MOBILE NAV */
-
-  .mobile-nav {
-    position: fixed;
-
-    display: grid;
-
-    grid-template-columns:
-      repeat(4, 1fr);
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    height: 66px;
-
-    background: rgba(255,255,255,0.97);
-
-    border-top: 1px solid var(--border);
-
-    z-index: 2000;
-
-    backdrop-filter: blur(15px);
-  }
-
-  .mobile-nav button {
-    border: 0;
-
-    background: transparent;
-
-    color: #7a8694;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 2px;
-  }
-
-  .mobile-nav button:first-child {
-    color: var(--accent-dark);
-  }
-
-  .mobile-icon {
-    font-size: 20px;
-
-    line-height: 1;
-  }
-
-  .mobile-nav small {
-    font-size: 10px;
-
-    font-weight: 700;
-  }
-
-}
-
-
-/* =========================================================
-   VERY SMALL SCREENS
-   ========================================================= */
-
-@media (max-width: 390px) {
-
-  .hero h1 {
-    font-size: 34px;
-  }
-
-  .join-button {
-    font-size: 11px;
-  }
-
-  .category-card {
-    flex-basis: 145px;
-  }
+      products = products.filter(product =>
+        String(product.id)
+          .toLowerCase()
+          .startsWith(
+            String(currentCategory).toLowerCase() + "-"
+          )
+      );
 
     }
+
+    if (currentQuery) {
+
+      const query =
+        currentQuery.toLowerCase().trim();
+
+      products = products.filter(product =>
+        [
+          product.name,
+          product.category,
+          product.merchant
+        ]
+          .join(" ")
+          .toLowerCase()
+          .includes(query)
+      );
+
+    }
+
+
+    container.innerHTML = `
+
+      <div class="section-header">
+
+        <div class="section-title">
+
+          <h2>
+            ${
+              currentCategory === "all"
+                ? "All products"
+                : categoryName(currentCategory)
+            }
+          </h2>
+
+          <p>
+            ${products.length}
+            product${products.length === 1 ? "" : "s"} found
+          </p>
+
+        </div>
+
+      </div>
+
+
+      ${
+        products.length
+          ? `
+            <div class="product-grid">
+              ${products.map(productCard).join("")}
+            </div>
+          `
+          : `
+            <div class="empty-state">
+
+              <h3>No products found</h3>
+
+              <p>
+                Try another search or category.
+              </p>
+
+            </div>
+          `
+      }
+
+    `;
+  }
+
+
+  /* =====================================================
+     CATEGORY FILTER
+  ===================================================== */
+
+  window.showCategory = function(category) {
+
+    currentCategory = category;
+    currentQuery = "";
+
+    renderShop();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+
+  /* =====================================================
+     SEARCH
+  ===================================================== */
+
+  window.filterProducts = function(query) {
+
+    currentQuery = query || "";
+
+    const shopProducts =
+      document.getElementById("shopProducts");
+
+    if (shopProducts) {
+
+      renderShopProducts();
+
+      return;
+    }
+
+    renderShop();
+
+  };
+
+
+  /* =====================================================
+     PRODUCT DETAILS
+  ===================================================== */
+
+  window.openProduct = function(id) {
+
+    const product =
+      data.products.find(
+        item => String(item.id) === String(id)
+      );
+
+    if (!product) {
+      return;
+    }
+
+    app.innerHTML = `
+
+      <section class="section">
+
+        <button
+          onclick="show('shop')"
+          style="
+            border:0;
+            background:transparent;
+            color:#0f806a;
+            font-weight:800;
+            cursor:pointer;
+            margin-bottom:20px;
+          "
+        >
+          ← Back to shop
+        </button>
+
+
+        <div
+          style="
+            display:grid;
+            grid-template-columns:
+              minmax(0,1fr)
+              minmax(0,1fr);
+            gap:35px;
+            background:white;
+            border:1px solid #e7ebef;
+            border-radius:22px;
+            padding:25px;
+            box-shadow:0 10px 30px rgba(11,22,37,.07);
+          "
+        >
+
+          <div
+            style="
+              background:#f3f5f6;
+              border-radius:17px;
+              overflow:hidden;
+              aspect-ratio:1/1;
+            "
+          >
+
+            <img
+              src="${escapeHTML(product.image || "")}"
+              alt="${escapeHTML(product.name)}"
+              style="
+                width:100%;
+                height:100%;
+                object-fit:cover;
+                display:block;
+              "
+            >
+
+          </div>
+
+
+          <div style="padding:10px 5px;">
+
+            <div
+              style="
+                color:#687585;
+                font-size:12px;
+                font-weight:800;
+                text-transform:uppercase;
+              "
+            >
+              ${escapeHTML(product.category)}
+            </div>
+
+
+            <h1
+              style="
+                margin-top:8px;
+                font-size:32px;
+                line-height:1.15;
+              "
+            >
+              ${escapeHTML(product.name)}
+            </h1>
+
+
+            <p
+              style="
+                margin-top:10px;
+                color:#687585;
+              "
+            >
+              Sold by
+              <strong>
+                ${escapeHTML(product.merchant)}
+              </strong>
+            </p>
+
+
+            <div
+              style="
+                margin-top:25
