@@ -36,4 +36,5 @@ window.BUSIAN_DATA = {
     { id: "supermarket-001", name: "Soko Maize Flour", category: "Supermarket", image: "Assets/1.jpg", price: null, merchantId: "merchant-003", merchant: "Local Supermarket", rating: 4.6, available: true }
   ]
 };
-      
+
+     
