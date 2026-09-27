@@ -254,7 +254,7 @@
       ${renderHeaderSearch()}
       <section class="hero-market">
         <div class="hero-market-copy"><span class="eyebrow">BUSIAN LOCAL COMMERCE</span><h1>Find it locally.<br><span>Get it delivered.</span></h1><p>Discover products from local businesses in Busia and connect to the people who make delivery possible.</p><div class="hero-actions"><button class="primary" onclick="show('shop')">Start shopping</button><button class="secondary" onclick="show('stores')">Browse stores</button></div></div>
-        <div class="hero-market-side"><span class="hero-round-icon"><img src="Assets/busian-icon-round.png" alt="BUSIAN"></span><strong>Local businesses.<br>One connected marketplace.</strong><small>Merchant → BUSIAN → Rider → Customer</small></div>
+        <div class="hero-market-side"><span class="hero-round-icon"><img src="Assets/file_00000000b86c820bb3cd5718c5a5cd39.png" alt="BUSIAN"></span><strong>Local businesses.<br>One connected marketplace.</strong><small>Merchant → BUSIAN → Rider → Customer</small></div>
       </section>
       ${trustStrip()}
       <section class="section-shell"><div class="section-heading-row"><div><span class="eyebrow">EXPLORE</span><h2>Shop by category</h2></div><button class="text-button" onclick="show('shop')">See all →</button></div><div class="category-grid">${categoryCards(8)}</div></section>
@@ -288,4 +288,4 @@
   function renderCart() {
     const items = cartItems();
     const subtotal = items.reduce((sum, item) => sum + ((item.product.price || 0) * item.quantity), 0);
-    app.innerHTML = `<section class="page-shell"><div class="section-heading"><span class="eyebrow">YOUR CART</span><h1>Ready when you are.</h1><p>Cart structure is prepared for the real checkout and M-Pesa payment flow.</p></div>${items.length ? `<div class="cart-layout"><div class="cart-list">${items.map(item => `<article c
+    app.innerHTML = `<section class="page-shell"><div class="section-heading"><span class="eyebrow">YOUR CART</span><h1>Ready when you are.</h1><p>Cart structure is prepared for the real checkout and M-Pesa payment flow.</p></div>${items.length ? `<div class="cart-layout"><div class="cart-list">${items.map
