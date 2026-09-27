@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#071522">
+  <meta name="description" content="BUSIAN — Find local products, trusted businesses and delivery in one place.">
+  <title>BUSIAN | Local Commerce, Connected</title>
+  <link rel="stylesheet" href="css/busian.css">
+</head>
+<body>
+  <div id="drawer-backdrop" class="drawer-backdrop" onclick="closeDrawer()"></div>
+
+  <aside id="mobile-drawer" class="mobile-drawer" aria-label="BUSIAN menu" aria-hidden="true">
+    <div class="drawer-head">
+      <a class="brand brand-drawer" href="#" onclick="show('home');closeDrawer();return false;" aria-label="BUSIAN Home">
+        <span class="brand-mark"><img src="Assets/file_00000000b86c820bb3cd5718c5a5cd39.png" alt=""></span>
+        <span class="brand-name">BUSIAN</span>
+      </a>
+      <button class="icon-button" type="button" onclick="closeDrawer()" aria-label="Close menu">×</button>
+    </div>
+    <div id="drawer-content" class="drawer-content"></div>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="menu-button" type="button" onclick="openDrawer()" aria-label="Open menu">☰</button>
+
+      <a class="brand" href="#" onclick="show('home');return false;" aria-label="BUSIAN Home">
+        <span class="brand-mark"><img src="Assets/file_00000000b86c820bb3cd5718c5a5cd39.png" alt=""></span>
+        <span class="brand-name">BUSIAN</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <button type="button" data-nav="home" onclick="show('home')">Home</button>
+        <button type="button" data-nav="shop" onclick="show('shop')">Shop</button>
+        <button type="button" data-nav="stores" onclick="show('stores')">Stores</button>
+        <button type="button" data-nav="orders" onclick="show('orders')">Orders</button>
+      </nav>
+
+      <div class="header-actions">
+        <button class="header-account" type="button" onclick="show('account')" aria-label="Account">
+          <span class="header-icon">♙</span><span class="header-account-label">Account</span>
+        </button>
+        <button class="cart-button" type="button" onclick="show('cart')" aria-label="Cart">
+          <span>🛒</span><b id="cart-count">0</b>
+        </button>
+        <button class="join-button" type="button" onclick="roles()">Join BUSIAN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" class="app-container"></main>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button type="button" data-mobile-nav="home" onclick="show('home')"><span>⌂</span><small>Home</small></button>
+    <button type="button" data-mobile-nav="shop" onclick="show('shop')"><span>⌕</span><small>Shop</small></button>
+    <button type="button" data-mobile-nav="orders" onclick="show('orders')"><span>▣</span><small>Orders</small></button>
+    <button type="button" data-mobile-nav="account" onclick="show('account')"><span>♙</span><small>Account</small></button>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <span class="brand-mark footer-mark"><img src="Assets/file_00000000b86c820bb3cd5718c5a5cd39.png" alt=""></span>
+          <strong>BUSIAN</strong>
+        </div>
+        <p>Find it locally. Get it delivered.</p>
+        <span>Connecting customers, local businesses and riders through one trusted commerce platform.</span>
+      </div>
+      <div class="footer-column">
+        <h4>Explore</h4>
+        <a href="#" onclick="show('home');return false;">Home</a>
+        <a href="#" onclick="show('shop');return false;">Shop</a>
+        <a href="#" onclick="show('stores');return false;">Stores</a>
+        <a href="#" onclick="show('orders');return false;">Orders</a>
+      </div>
+      <div class="footer-column">
+        <h4>Join BUSIAN</h4>
+        <a href="#" onclick="roles('merchant');return false;">Become a Merchant</a>
+        <a href="#" onclick="roles('rider');return false;">Become a Rider</a>
+        <a href="#" onclick="roles('agent');return false;">Become a Field Agent</a>
+      </div>
+      <div class="footer-column">
+        <h4>Trust</h4>
+        <span>Verified merchants</span>
+        <span>Secure payments</span>
+        <span>Tracked delivery</span>
+        <span>Local support</span>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 BUSIAN. All rights reserved.</span><span>Local commerce, connected.</span></div>
+  </footer>
+
+  <script src="Js/data.js"></script>
+  <script src="Js/busian.js"></script>
+</body>
+</html>
