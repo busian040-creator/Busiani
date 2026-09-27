@@ -24,7 +24,7 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <button class="menu-button" type="button" onclick="openDrawer()" aria-label="Open menu">☰</button>
+      <button class="menu-button" type="button" onclick="openDrawer()" aria-label="Open menu"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
 
       <a class="brand" href="#" onclick="show('home');return false;" aria-label="BUSIAN Home">
         <span class="brand-mark"><img src="Assets/file_00000000b86c820bb3cd5718c5a5cd39.png" alt=""></span>
@@ -40,10 +40,10 @@
 
       <div class="header-actions">
         <button class="header-account" type="button" onclick="show('account')" aria-label="Account">
-          <span class="header-icon">♙</span><span class="header-account-label">Account</span>
+          <span class="header-icon"><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span class="header-account-label">Account</span>
         </button>
         <button class="cart-button" type="button" onclick="show('cart')" aria-label="Cart">
-          <span>🛒</span><b id="cart-count">0</b>
+          <span><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg></span><b id="cart-count">0</b>
         </button>
         <button class="join-button" type="button" onclick="roles()">Join BUSIAN</button>
       </div>
@@ -53,10 +53,10 @@
   <main id="app" class="app-container"></main>
 
   <nav class="mobile-nav" aria-label="Mobile navigation">
-    <button type="button" data-mobile-nav="home" onclick="show('home')"><span>⌂</span><small>Home</small></button>
-    <button type="button" data-mobile-nav="shop" onclick="show('shop')"><span>⌕</span><small>Shop</small></button>
-    <button type="button" data-mobile-nav="orders" onclick="show('orders')"><span>▣</span><small>Orders</small></button>
-    <button type="button" data-mobile-nav="account" onclick="show('account')"><span>♙</span><small>Account</small></button>
+    <button type="button" data-mobile-nav="home" onclick="show('home')"><span><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg></span><small>Home</small></button>
+    <button type="button" data-mobile-nav="shop" onclick="show('shop')"><span><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></span><small>Shop</small></button>
+    <button type="button" data-mobile-nav="orders" onclick="show('orders')"><span><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 7 8-4 8 4-8 4-8-4Z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/></svg></span><small>Orders</small></button>
+    <button type="button" data-mobile-nav="account" onclick="show('account')"><span><svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><small>Account</small></button>
   </nav>
 
   <footer class="site-footer">
