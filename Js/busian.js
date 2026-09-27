@@ -300,4 +300,86 @@
     app.innerHTML = `<section class="page-shell account-page"><div class="account-hero"><span class="account-avatar">♙</span><div><span class="eyebrow">MY BUSIAN</span><h1>${roleLabel} account</h1><p>Authentication, saved addresses, payments and approved roles will be connected through Supabase next.</p></div></div><div class="account-grid"><button onclick="show('orders')"><strong>▣ Orders</strong><span>Track purchases and delivery</span></button><button onclick="show('cart')"><strong>🛒 Cart</strong><span>${cartCount()} item(s) waiting</span></button><button onclick="roles()"><strong>＋ Join another role</strong><span>Merchant, rider or field agent</span></button><button onclick="show('help')"><strong>◌ Help & support</strong><span>Get assistance from BUSIAN</span></button></div></section>`;
   }
 
-  function renderCart() 
+  function renderCart() {
+    const items = cartItems();
+    const subtotal = items.reduce((sum, item) => sum + ((item.product.price || 0) * item.quantity), 0);
+    app.innerHTML = `<section class="page-shell"><div class="section-heading"><span class="eyebrow">YOUR CART</span><h1>Ready when you are.</h1><p>Cart structure is prepared for the real checkout and M-Pesa payment flow.</p></div>${items.length ? `<div class="cart-layout"><div class="cart-list">${items.map(item => `<article class="cart-item"><img src="${esc(item.product.image)}" alt="${esc(item.product.name)}"><div class="cart-item-info"><strong>${esc(item.product.name)}</strong><button class="merchant-link" onclick="openStore('${esc(item.product.merchantId)}')">✓ ${esc(item.product.merchant)}</button><span>${money(item.product.price)}</span><div class="qty-controls"><button onclick="changeCartQuantity('${esc(item.product.id)}',-1)">−</button><b>${item.quantity}</b><button onclick="changeCartQuantity('${esc(item.product.id)}',1)">+</button><button class="remove-link" onclick="removeFromCart('${esc(item.product.id)}')">Remove</button></div></div></article>`).join("")}</div><aside class="checkout-summary"><span class="eyebrow">ORDER SUMMARY</span><div><span>Subtotal</span><strong>${money(subtotal)}</strong></div><div><span>Delivery</span><strong>Calculated at checkout</strong></div><hr><div class="summary-total"><span>Total</span><strong>${money(subtotal)}</strong></div><button class="primary full" onclick="show('checkout')">Proceed to checkout</button></aside></div>` : `<div class="empty-state"><div class="empty-icon">🛒</div><h2>Your cart is empty</h2><p>Add products from local BUSIAN stores and they will appear here.</p><button class="primary" onclick="show('shop')">Browse products</button></div>`}</section>`;
+  }
+
+  function renderCheckout() {
+    const items = cartItems();
+    const subtotal = items.reduce((sum, item) => sum + ((item.product.price || 0) * item.quantity), 0);
+    app.innerHTML = `<section class="page-shell"><button class="back-button" onclick="show('cart')">← Back to cart</button><div class="section-heading"><span class="eyebrow">CHECKOUT</span><h1>Complete your order.</h1><p>The interface is ready for the Supabase + M-Pesa transaction flow.</p></div><div class="checkout-layout"><div class="checkout-form"><section class="checkout-block"><h3>1. Delivery location</h3><label>Delivery area<input type="text" placeholder="Busia Town / estate / landmark"></label><label>Phone number<input type="tel" placeholder="07xx xxx xxx"></label><label>Delivery notes<textarea placeholder="Landmark or rider instructions"></textarea></label></section><section class="checkout-block"><h3>2. Payment</h3><button class="payment-method active" type="button"><span>🇰🇪</span><div><strong>M-Pesa</strong><small>Pay securely through M-Pesa STK</small></div><b>✓</b></button><p class="muted small-text">M-Pesa will be activated after the Supabase payment service is connected.</p></section></div><aside class="checkout-summary"><span class="eyebrow">YOUR ORDER</span>${items.map(i => `<div class="summary-line"><span>${esc(i.product.name)} × ${i.quantity}</span><strong>${money((i.product.price || 0) * i.quantity)}</strong></div>`).join("")}<hr><div class="summary-total"><span>Total</span><strong>${money(subtotal)}</strong></div><button class="primary full" onclick="paymentPlaceholder()">Continue to M-Pesa</button></aside></div></section>`;
+  }
+
+  window.paymentPlaceholder = () => toast("M-Pesa payment will be connected after Supabase setup.");
+
+  function workspaceStat(label, value, hint) { return `<div class="stat-card"><span>${esc(label)}</span><strong>${esc(value)}</strong><small>${esc(hint)}</small></div>`; }
+
+  function renderMerchant(section) {
+    app.innerHTML = `<section class="workspace-page"><div class="workspace-head"><div><span class="eyebrow">MERCHANT WORKSPACE</span><h1>Business dashboard</h1><p>Manage products, orders, inventory and sales from one place.</p></div><button class="secondary" onclick="roles('merchant')">Business verification</button></div><div class="stats-grid">${workspaceStat("Today's sales", "KSh —", "Live after Supabase")}${workspaceStat("Orders", "—", "Awaiting live data")}${workspaceStat("Products", "—", "Merchant catalogue")}${workspaceStat("Payout", "KSh —", "Settlement status")}</div><div class="workspace-grid"><aside class="workspace-sidebar"><button class="active" onclick="showWorkspace('merchant','dashboard')">Dashboard</button><button onclick="showWorkspace('merchant','orders')">Orders</button><button onclick="showWorkspace('merchant','products')">Products</button><button onclick="showWorkspace('merchant','inventory')">Inventory</button><button onclick="showWorkspace('merchant','sales')">Sales & payments</button><button onclick="showWorkspace('merchant','profile')">Store profile</button></aside><div class="workspace-content">${merchantSection(section)}</div></div></section>`;
+  }
+
+  function merchantSection(section) {
+    if (section === "products") return `<div class="workspace-card"><div class="card-heading"><div><h2>Products</h2><p>Manage the products customers see.</p></div><button class="primary">+ Add product</button></div><div class="management-list">${d.products.slice(0,5).map(p => `<div><img src="${esc(p.image)}" alt=""><span><strong>${esc(p.name)}</strong><small>${esc(p.category)}</small></span><b>${money(p.price)}</b><button class="secondary small">Edit</button></div>`).join("")}</div></div>`;
+    if (section === "orders") return `<div class="workspace-card"><div class="card-heading"><div><h2>Orders</h2><p>Order lifecycle: new → accepted → preparing → ready → delivered.</p></div></div><div class="empty-state compact"><h3>No live merchant orders yet</h3><p>Supabase will populate this view after connection.</p></div></div>`;
+    if (section === "inventory") return `<div class="workspace-card"><h2>Inventory</h2><p class="muted">Stock levels, low-stock alerts and product availability will live here.</p><div class="feature-list"><span>✓ Stock quantity</span><span>✓ Low-stock alerts</span><span>✓ Product activation</span><span>✓ Merchant catalogue sync</span></div></div>`;
+    if (section === "sales") return `<div class="workspace-card"><h2>Sales & payments</h2><p class="muted">Track gross sales, BUSIAN commission, delivery charges and merchant settlement.</p><div class="feature-list"><span>Revenue</span><span>Commission</span><span>Settlement status</span><span>Transaction history</span></div></div>`;
+    if (section === "profile") return `<div class="workspace-card"><h2>Store profile</h2><p class="muted">Business information and verification documents will be securely managed here.</p><button class="primary">Complete business profile</button></div>`;
+    return `<div class="workspace-card"><div class="card-heading"><div><h2>Welcome to your business workspace</h2><p>Your merchant control centre is ready for live data.</p></div><span class="verified-badge">Verification required</span></div><div class="feature-list"><span>✓ Receive customer orders</span><span>✓ Manage products and inventory</span><span>✓ Track sales and settlements</span><span>✓ View verification status</span></div></div>`;
+  }
+
+  function renderRider(section) {
+    app.innerHTML = `<section class="workspace-page"><div class="workspace-head"><div><span class="eyebrow">RIDER WORKSPACE</span><h1>Delivery dashboard</h1><p>Accept jobs, manage active deliveries and track earnings.</p></div><span class="online-pill">● Available for work</span></div><div class="stats-grid">${workspaceStat("Available", "—", "Delivery jobs")}${workspaceStat("Active", "—", "Current delivery")}${workspaceStat("Today", "—", "Completed jobs")}${workspaceStat("Earnings", "KSh —", "Live after connection")}</div><div class="workspace-grid"><aside class="workspace-sidebar"><button class="active" onclick="showWorkspace('rider','dashboard')">Dashboard</button><button onclick="showWorkspace('rider','deliveries')">Deliveries</button><button onclick="showWorkspace('rider','active')">Active delivery</button><button onclick="showWorkspace('rider','earnings')">Earnings</button><button onclick="showWorkspace('rider','profile')">Profile</button></aside><div class="workspace-content">${riderSection(section)}</div></div></section>`;
+  }
+
+  function riderSection(section) {
+    if (section === "deliveries") return `<div class="workspace-card"><h2>Available deliveries</h2><p class="muted">Paid orders that are ready for rider assignment will appear here.</p><div class="empty-state compact"><h3>No delivery jobs yet</h3><p>Live assignments will be powered by the order and delivery tables.</p></div></div>`;
+    if (section === "active") return `<div class="workspace-card"><h2>Active delivery</h2><div class="order-steps large"><span class="done">1<br><small>Assigned</small></span><span>2<br><small>Picked up</small></span><span>3<br><small>Out for delivery</small></span><span>4<br><small>Delivered</small></span></div></div>`;
+    if (section === "earnings") return `<div class="workspace-card"><h2>Earnings</h2><p class="muted">Rider earnings will be calculated from completed deliveries and BUSIAN's configurable commission rules.</p><div class="feature-list"><span>Delivery earnings</span><span>Completed deliveries</span><span>Settlement history</span></div></div>`;
+    if (section === "profile") return `<div class="workspace-card"><h2>Rider profile</h2><p class="muted">Approval, service area, vehicle details and payout information will be stored securely.</p><button class="primary">Complete rider profile</button></div>`;
+    return `<div class="workspace-card"><h2>Ready for deliveries</h2><p class="muted">The rider workflow is prepared for live assignment once orders and authentication are connected.</p><div class="feature-list"><span>✓ Accept delivery jobs</span><span>✓ Pickup confirmation</span><span>✓ Delivery status updates</span><span>✓ Earnings tracking</span></div></div>`;
+  }
+
+  function renderAdmin(section) {
+    app.innerHTML = `<section class="workspace-page"><div class="workspace-head"><div><span class="eyebrow">BUSIAN OPERATIONS</span><h1>Admin control centre</h1><p>Monitor users, merchants, riders, orders, payments and platform rules.</p></div><span class="admin-pill">ADMIN</span></div><div class="stats-grid">${workspaceStat("Users", "—", "Customer + roles")}${workspaceStat("Merchants", "—", "Verification")}${workspaceStat("Orders", "—", "All order states")}${workspaceStat("Payments", "KSh —", "M-Pesa transactions")}</div><div class="workspace-grid"><aside class="workspace-sidebar"><button class="active" onclick="showWorkspace('admin')">Dashboard</button><button onclick="showWorkspace('admin','users')">Users</button><button onclick="showWorkspace('admin','merchants')">Merchants</button><button onclick="showWorkspace('admin','orders')">Orders & deliveries</button><button onclick="showWorkspace('admin','payments')">Payments</button><button onclick="showWorkspace('admin','verification')">Verification</button><button onclick="showWorkspace('admin','commissions')">Commissions</button></aside><div class="workspace-content">${adminSection(section)}</div></div></section>`;
+  }
+
+  function adminSection(section) {
+    const map = { users: "User accounts and role approvals", merchants: "Merchant onboarding and verification", orders: "Orders, rider assignments and delivery lifecycle", payments: "M-Pesa transactions, payment status and reconciliation", verification: "Review merchant and rider verification records", commissions: "Configure BUSIAN, merchant and rider commission rules" };
+    if (map[section]) return `<div class="workspace-card"><h2>${esc(map[section])}</h2><p class="muted">This management area is structurally ready. Supabase policies and server-side operations will provide the real records.</p><div class="feature-list"><span>✓ Role-based access</span><span>✓ Audit-friendly status changes</span><span>✓ Secure server operations</span></div></div>`;
+    return `<div class="workspace-card"><h2>Platform overview</h2><p class="muted">The admin layer will control the operating system behind BUSIAN without exposing privileged actions to the public browser.</p><div class="feature-list"><span>✓ Users & roles</span><span>✓ Merchant verification</span><span>✓ Rider operations</span><span>✓ Orders & delivery</span><span>✓ Payments & reconciliation</span><span>✓ Commission rules</span></div></div>`;
+  }
+
+  window.toast = (message) => {
+    let node = document.getElementById("busian-toast");
+    if (!node) { node = document.createElement("div"); node.id = "busian-toast"; document.body.appendChild(node); }
+    node.textContent = message; node.classList.add("show");
+    clearTimeout(window.__busianToast); window.__busianToast = setTimeout(() => node.classList.remove("show"), 2400);
+  };
+
+  // Placeholder screens for navigation items that are intentionally not data-backed yet.
+  window.showSpecial = (title, message) => {
+    app.innerHTML = `<section class="page-shell centered"><span class="eyebrow">BUSIAN</span><h1>${esc(title)}</h1><p>${esc(message)}</p><button class="primary" onclick="show('home')">Back home</button></section>`;
+  };
+
+  window.show = new Proxy(window.show, {
+    apply(target, thisArg, args) {
+      const page = args[0];
+      if (page === "wishlist") return showSpecial("Wishlist", "Saved products will be connected to your authenticated account.");
+      if (page === "notifications") return showSpecial("Notifications", "Order, payment and delivery notifications will be powered by Supabase.");
+      if (page === "help") return showSpecial("BUSIAN Support", "Support channels will be added as the platform services are connected.");
+      return Reflect.apply(target, thisArg, args);
+    }
+  });
+
+  try {
+    renderHome();
+    updateCartCount();
+  } catch (error) {
+    console.error("BUSIAN startup error:", error);
+    if (app) {
+      app.innerHTML = `<section class="page-shell centered"><span class="eyebrow">BUSIAN</span><h1>BUSIAN is loading</h1><p>We couldn't load the marketplace interface. Please refresh the page.</p><button class="primary" type="button" onclick="location.reload()">Refresh BUSIAN</button></section>`;
+    }
+  }
+})();
