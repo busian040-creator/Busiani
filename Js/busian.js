@@ -2,11 +2,26 @@
   const d = window.BUSIAN_DATA || { categories: [], merchants: [], products: [] };
   const app = document.getElementById("app");
 
+  const safeStorageGet = (key, fallback = null) => {
+    try { return localStorage.getItem(key) ?? fallback; } catch (error) { return fallback; }
+  };
+
+  const safeCart = () => {
+    try {
+      const raw = safeStorageGet("busian_cart", "[]");
+      const parsed = JSON.parse(raw || "[]");
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      try { localStorage.removeItem("busian_cart"); } catch (_) {}
+      return [];
+    }
+  };
+
   const state = {
     category: "all",
     query: "",
-    cart: JSON.parse(localStorage.getItem("busian_cart") || "[]"),
-    role: localStorage.getItem("busian_preview_role") || "customer",
+    cart: safeCart(),
+    role: safeStorageGet("busian_preview_role", "customer") || "customer",
     drawer: false
   };
 
@@ -21,7 +36,7 @@
   const cartItems = () => state.cart.map((item) => ({ ...item, product: productById(item.productId) })).filter((item) => item.product);
 
   function persistCart() {
-    localStorage.setItem("busian_cart", JSON.stringify(state.cart));
+    try { localStorage.setItem("busian_cart", JSON.stringify(state.cart)); } catch (error) {}
     updateCartCount();
   }
 
@@ -285,7 +300,4 @@
     app.innerHTML = `<section class="page-shell account-page"><div class="account-hero"><span class="account-avatar">♙</span><div><span class="eyebrow">MY BUSIAN</span><h1>${roleLabel} account</h1><p>Authentication, saved addresses, payments and approved roles will be connected through Supabase next.</p></div></div><div class="account-grid"><button onclick="show('orders')"><strong>▣ Orders</strong><span>Track purchases and delivery</span></button><button onclick="show('cart')"><strong>🛒 Cart</strong><span>${cartCount()} item(s) waiting</span></button><button onclick="roles()"><strong>＋ Join another role</strong><span>Merchant, rider or field agent</span></button><button onclick="show('help')"><strong>◌ Help & support</strong><span>Get assistance from BUSIAN</span></button></div></section>`;
   }
 
-  function renderCart() {
-    const items = cartItems();
-    const subtotal = items.reduce((sum, item) => sum + ((item.product.price || 0) * item.quantity), 0);
-    app.innerHTML = `<section class="page-shell"><div class="section-heading"><span class="eyebrow">YOUR CART</span><h1>Ready when you are.</h1><p>Cart structure is prepared for the real checkout and M-Pesa payment flow.</p></div>${items.length ? `<div class="cart-layout"><div class="cart-list">${items.map
+  function renderCart() 
