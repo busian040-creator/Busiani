@@ -167,3 +167,24 @@
   window.addEventListener('DOMContentLoaded',boot);
   if(document.readyState!=='loading')boot();
 })();
+
+
+
+async function testSupabaseConnection() {
+    const { data, error } = await window.busianSupabase
+        .from('categories')
+        .select('id, name, slug, sort_order')
+        .order('sort_order');
+
+    console.log('BUSIAN Supabase categories:', data);
+
+    if (error) {
+        console.error('Supabase connection error:', error);
+        return;
+    }
+
+    console.log('✅ BUSIAN connected to Supabase successfully!');
+}
+
+testSupabaseConnection();
+
