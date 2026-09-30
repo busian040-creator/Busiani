@@ -8,3 +8,16 @@ const supabaseClient = window.supabase.createClient(
 );
 
 window.busianSupabase = supabaseClient;
+window.loadBusianCategories = async function () {
+    const { data, error } = await window.busianSupabase
+        .from('categories')
+        .select('id, name, slug, sort_order')
+        .order('sort_order');
+
+    if (error) {
+        console.error('BUSIAN categories error:', error);
+        return null;
+    }
+
+    return data;
+};
