@@ -162,8 +162,33 @@
   function renderAdmin(section){const side=[{id:'dashboard',label:'Dashboard',icon:'home'},{id:'users',label:'Users',icon:'user'},{id:'merchants',label:'Merchants',icon:'store'},{id:'orders',label:'Orders & deliveries',icon:'box'},{id:'payments',label:'Payments',icon:'wallet'},{id:'verification',label:'Verification',icon:'shield'},{id:'commissions',label:'Commissions',icon:'wallet'}];let body='';if(section==='merchants'||section==='verification')body=`<div class="workspace-card"><h2>Merchant verification</h2><p>Pending applications, documents and approval decisions will be read from Supabase. No fake approvals are shown.</p><div class="empty-state compact"><strong>No live verification queue.</strong></div></div>`;else if(section==='orders')body=`<div class="workspace-card"><h2>Orders & deliveries</h2><p>Operations will monitor the authenticated order lifecycle and rider assignments here.</p><div class="empty-state compact"><strong>No live orders.</strong></div></div>`;else if(section==='payments')body=`<div class="workspace-card"><h2>Payments</h2><p>M-Pesa transactions, callbacks, reconciliation and refunds will be recorded in Supabase.</p><div class="empty-state compact"><strong>No live payment records.</strong></div></div>`;else if(section==='commissions')body=`<div class="workspace-card"><h2>Commissions</h2><p>Merchant, rider and BUSIAN settlement rules will be calculated from transaction records.</p><div class="empty-state compact"><strong>No commission records.</strong></div></div>`;else if(section==='users')body=`<div class="workspace-card"><h2>Users & roles</h2><p>User profiles and approved roles will be controlled by Supabase Auth and Row Level Security.</p><div class="empty-state compact"><strong>No live users loaded.</strong></div></div>`;else body=`<div class="stats-grid"><div class="stat-card"><span>Users</span><strong>—</strong><small>Supabase</small></div><div class="stat-card"><span>Merchants</span><strong>—</strong><small>Verification</small></div><div class="stat-card"><span>Orders</span><strong>—</strong><small>Live lifecycle</small></div><div class="stat-card"><span>Payments</span><strong>—</strong><small>M-Pesa</small></div></div><div class="workspace-card"><h2>BUSIAN operations</h2><div class="feature-list"><span>${icon('shield')} Approve verified merchants</span><span>${icon('truck')} Monitor delivery assignments</span><span>${icon('wallet')} Reconcile payments</span><span>${icon('wallet')} Configure commissions</span></div></div>`;workspaceShell('Admin controls','BUSIAN ADMIN',body,side,section);}
 
   function setupAccessibility(){document.addEventListener('keydown',e=>{if(e.key==='Escape'&&state.drawer)closeDrawer();if(e.key==='Tab'&&state.drawer){const drawer=document.getElementById('mobile-drawer');const focusables=drawer?.querySelectorAll('button,a,input,select,textarea,[tabindex]:not([tabindex="-1"])');if(!focusables||!focusables.length)return;const first=focusables[0],last=focusables[focusables.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}}); }
+async function boot(){
+  setupAccessibility();
+  updateCartCount();
+  renderDrawer();
 
-  function boot(){ setupAccessibility(); updateCartCount(); renderDrawer(); renderHome(); }
+  const categories = await window.loadBusianCategories();
+
+  if (categories && categories.length) {
+    const presentation = new Map(
+      d.categories.map(c => [c.id, c])
+    );
+
+    d.categories = categories.map(row => {
+      const ui = presentation.get(row.slug) || {};
+
+      return {
+        ...ui,
+        id: row.slug,
+        dbId: row.id,
+        name: row.name,
+        sort_order: row.sort_order
+      };
+    });
+  }
+
+  renderHome();
+}
   window.addEventListener('DOMContentLoaded',boot);
   if(document.readyState!=='loading')boot();
 })();
