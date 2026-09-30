@@ -169,7 +169,6 @@
 })();
 
 
-
 async function testSupabaseConnection() {
     const { data, error } = await window.busianSupabase
         .from('categories')
@@ -186,5 +185,6 @@ async function testSupabaseConnection() {
     console.log('✅ BUSIAN connected to Supabase successfully!');
 }
 
-testSupabaseConnection();
+testSupabaseConnectio
+
 
