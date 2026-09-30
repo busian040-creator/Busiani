@@ -8,12 +8,12 @@ window.BUSIAN_DATA = {
 
   categories: [
     { id: "supermarket", name: "Supermarket", short: "Everyday essentials", icon: "🛒", image: "Assets/1.jpg" },
-    { id: "beauty", name: "Beauty & Care", short: "Personal care", icon: "✦", image: "Assets/Bodyshop.png" },
+    { id: "beauty-care", name: "Beauty & Care", short: "Personal care", icon: "✦", image: "Assets/Bodyshop.png" },
     { id: "electronics", name: "Electronics", short: "Phones & gadgets", icon: "▣", image: "Assets/1 (6).jpg" },
-    { id: "fashion", name: "Fashion & Design", short: "Style & clothing", icon: "◇", image: "Assets/1 (5).jpg" },
-    { id: "home", name: "Furniture & Home", short: "Home & office", icon: "⌂", image: "Assets/2.jpg" },
-    { id: "phones", name: "Phones & Tablets", short: "Mobile devices", icon: "▯", image: "Assets/1 (4).jpg" },
-    { id: "food", name: "Food & Restaurants", short: "Meals & menus", icon: "◉", image: "Assets/1 (7).jpg" },
+    { id: "fashion-design", name: "Fashion & Design", short: "Style & clothing", icon: "◇", image: "Assets/1 (5).jpg" },
+    { id: "furniture-home", name: "Furniture & Home", short: "Home & office", icon: "⌂", image: "Assets/2.jpg" },
+    { id: "phones-tablets", name: "Phones & Tablets", short: "Mobile devices", icon: "▯", image: "Assets/1 (4).jpg" },
+    { id: "food-restaurants", name: "Food & Restaurants", short: "Meals & menus", icon: "◉", image: "Assets/1 (7).jpg" },
     { id: "more", name: "More categories", short: "Explore BUSIAN", icon: "+", image: "Assets/1 (2).jpg" }
   ],
 
@@ -38,4 +38,5 @@ window.BUSIAN_DATA = {
 };
 
 
-      
+
+     
