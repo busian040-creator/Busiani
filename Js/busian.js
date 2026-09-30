@@ -193,18 +193,3 @@ async function boot(){
   if(document.readyState!=='loading')boot();
 })();
 
-async function testSupabaseConnection() {
-    const { data, error } = await window.busianSupabase
-        .from('categories')
-        .select('id, name, slug, sort_order')
-        .order('sort_order');
-
-    if (error) {
-        alert('❌ Supabase connection failed:\n' + error.message);
-        return;
-    }
-
-    alert('✅ Supabase connected!\n\nCategories found: ' + data.length);
-}
-
-testSupabaseConnection();
