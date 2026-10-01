@@ -21,3 +21,31 @@ window.loadBusianCategories = async function () {
 
     return data;
 };
+
+window.busianSignUp = async function (email, password, options = {}) {
+    return await window.busianSupabase.auth.signUp({
+        email,
+        password,
+        options
+    });
+};
+
+window.busianSignIn = async function (email, password) {
+    return await window.busianSupabase.auth.signInWithPassword({
+        email,
+        password
+    });
+};
+
+window.busianSignOut = async function () {
+    return await window.busianSupabase.auth.signOut();
+};
+
+window.busianGetSession = async function () {
+    return await window.busianSupabase.auth.getSession();
+};
+
+window.busianOnAuthStateChange = function (callback) {
+    return window.busianSupabase.auth.onAuthStateChange(callback);
+};
+                                      
