@@ -45,6 +45,23 @@ window.busianGetSession = async function () {
     return await window.busianSupabase.auth.getSession();
 };
 
+// Read the authenticated user's existing BUSIAN profile.
+window.busianGetProfile = async function (userId) {
+    return await window.busianSupabase
+        .from('profiles')
+        .select('id, full_name, phone, avatar_url, default_role')
+        .eq('id', userId)
+        .maybeSingle();
+};
+
+// Read the authenticated user's existing database roles.
+window.busianGetUserRoles = async function (userId) {
+    return await window.busianSupabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userId);
+};
+
 window.busianOnAuthStateChange = function (callback) {
     return window.busianSupabase.auth.onAuthStateChange(callback);
 };
