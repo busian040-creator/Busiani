@@ -67,6 +67,28 @@
     if(error){ console.error('BUSIAN session error:', error); return; }
     state.authSession = data?.session || null;
     state.authUser = data?.session?.user || null;
+
+    if(state.authUser?.id && window.busianGetProfile && window.busianGetUserRoles){
+      try {
+        const [profileResult, rolesResult] = await Promise.all([
+          window.busianGetProfile(state.authUser.id),
+          window.busianGetUserRoles(state.authUser.id)
+        ]);
+        if(profileResult.error) console.error('BUSIAN profile error:', profileResult.error);
+        if(rolesResult.error) console.error('BUSIAN role error:', rolesResult.error);
+
+        const databaseRole = rolesResult.data?.[0]?.role || profileResult.data?.default_role;
+        const frontendRole = databaseRole === 'field_agent' ? 'agent' : databaseRole;
+        const allowedRoles = ['customer','merchant','rider','agent','admin'];
+        if(allowedRoles.includes(frontendRole)){
+          state.role = frontendRole;
+          safeSet('busian_preview_role', frontendRole);
+        }
+      } catch (roleError) {
+        console.error('BUSIAN role loading error:', roleError);
+      }
+    }
+
     state.authReady = true;
     updateAuthUI();
   }
@@ -153,6 +175,7 @@
         toast('Account created. Check your email to confirm your account, then sign in.');
         return false;
       }
+      if(result.data?.session) await refreshAuthState();
       toast(mode === 'signup' ? 'Account created successfully.' : 'Signed in successfully.');
       renderAccount();
     } catch (error) {
@@ -242,9 +265,10 @@ async function boot(){
   renderDrawer();
   await refreshAuthState();
   if(window.busianOnAuthStateChange){
-    window.busianOnAuthStateChange((_event, session) => {
+    window.busianOnAuthStateChange(async (_event, session) => {
       state.authSession = session || null;
       state.authUser = session?.user || null;
+      if(state.authUser?.id) await refreshAuthState();
       state.authReady = true;
       updateAuthUI();
       if(!state.authUser && document.querySelector('.account-page')) renderAccount();
