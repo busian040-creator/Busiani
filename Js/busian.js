@@ -46,6 +46,7 @@
   const state = {
     category: 'all', query: '', cart: safeJSON('busian_cart', []), wishlist: safeJSON('busian_wishlist', []),
     role: safeGet('busian_preview_role', 'customer') || 'customer', drawer: false, lastFocus: null,
+    authSession: null, authUser: null, authReady: false,
     drafts: safeJSON('busian_frontend_drafts', {}), fieldLeads: safeJSON('busian_field_leads', [])
   };
 
@@ -54,6 +55,21 @@
   function persistWishlist(){ safeSet('busian_wishlist', JSON.stringify(state.wishlist)); }
   function toast(message){ let t=document.getElementById('busian-toast'); if(!t){t=document.createElement('div');t.id='busian-toast';document.body.appendChild(t);} t.textContent=message;t.classList.add('show');clearTimeout(window.__busianToast);window.__busianToast=setTimeout(()=>t.classList.remove('show'),2300); }
   function updateCartCount(){ const el=document.getElementById('cart-count'); if(el) el.textContent=cartCount(); }
+  function updateAuthUI(){
+    const label=document.querySelector('.header-account-label');
+    const button=document.querySelector('.header-account');
+    if(label) label.textContent=state.authUser ? 'Account · Signed in' : 'Account';
+    if(button) button.setAttribute('aria-label', state.authUser ? `Account — signed in as ${state.authUser.email || 'user'}` : 'Account');
+  }
+  async function refreshAuthState(){
+    if(!window.busianGetSession) return;
+    const { data, error } = await window.busianGetSession();
+    if(error){ console.error('BUSIAN session error:', error); return; }
+    state.authSession = data?.session || null;
+    state.authUser = data?.session?.user || null;
+    state.authReady = true;
+    updateAuthUI();
+  }
   function setActiveNav(page){ document.querySelectorAll('[data-nav]').forEach(x=>x.classList.toggle('active',x.dataset.nav===page)); document.querySelectorAll('[data-mobile-nav]').forEach(x=>x.classList.toggle('active',x.dataset.mobileNav===page)); }
   function filteredProducts(){ return d.products.filter(p => { const cat=state.category==='all'||p.category.toLowerCase()===state.category; const q=`${p.name} ${p.category} ${p.merchant}`.toLowerCase(); return cat && q.includes(state.query.toLowerCase()); }); }
   function wishlistHas(id){ return state.wishlist.includes(id); }
@@ -156,7 +172,28 @@ window.showWorkspace=(role=state.role,section='dashboard')=>{state.role=role;saf
 
   function renderOrders(){setActiveNav('orders');app.innerHTML=`<section class="page-shell"><div class="section-heading"><span class="eyebrow">MY ORDERS</span><h1>Your orders.</h1><p>Order records, payment confirmation and delivery status will come from your authenticated Supabase account.</p></div><div class="empty-state"><div class="empty-icon">${icon('box')}</div><strong>No orders yet.</strong><p>Once you place an order, its payment and delivery lifecycle will appear here with live status updates.</p><button class="primary" onclick="show('shop')">Browse products</button></div></section>`;}
 
-  function renderAccount(){setActiveNav('account');const roleLabel=state.role==='customer'?'Customer':state.role.charAt(0).toUpperCase()+state.role.slice(1);app.innerHTML=`<section class="page-shell account-page"><div class="account-hero"><span class="account-avatar">${icon('user')}</span><div><span class="eyebrow">MY BUSIAN</span><h1>${roleLabel} account</h1><p>Authentication, saved addresses, payments, wishlist and approved roles will be stored against your Supabase profile.</p></div></div><div class="account-grid"><button onclick="show('orders')"><strong>${icon('box')} Orders</strong><span>Track purchases and delivery</span></button><button onclick="show('wishlist')"><strong>${icon('heart')} Wishlist</strong><span>${state.wishlist.length} saved item(s)</span></button><button onclick="show('cart')"><strong>${icon('cart')} Cart</strong><span>${cartCount()} item(s) waiting</span></button><button onclick="roles()"><strong>${icon('plus')} Join another role</strong><span>Merchant, rider or field agent</span></button><button onclick="show('notifications')"><strong>${icon('bell')} Notifications</strong><span>Order and account updates</span></button><button onclick="show('help')"><strong>${icon('shield')} Help & support</strong><span>Get assistance from BUSIAN</span></button></div></section>`;}
+  function renderAccount(){
+    setActiveNav('account');
+    const roleLabel=state.role==='customer'?'Customer':state.role.charAt(0).toUpperCase()+state.role.slice(1);
+    const signedIn=!!state.authUser;
+    const email=signedIn ? esc(state.authUser.email || '') : '';
+    app.innerHTML=`<section class="page-shell account-page"><div class="account-hero"><span class="account-avatar">${icon('user')}</span><div><span class="eyebrow">MY BUSIAN</span><h1>${signedIn ? `${roleLabel} account` : 'Account'}</h1>${signedIn?`<div class="verified-badge" style="display:inline-flex;margin:8px 0">✓ Signed in</div><p>${email}</p>`:`<p>You are not currently signed in. Sign in to access your BUSIAN account.</p>`}</div></div>${signedIn?`<div class="account-grid"><button onclick="show('orders')"><strong>${icon('box')} Orders</strong><span>Track purchases and delivery</span></button><button onclick="show('wishlist')"><strong>${icon('heart')} Wishlist</strong><span>${state.wishlist.length} saved item(s)</span></button><button onclick="show('cart')"><strong>${icon('cart')} Cart</strong><span>${cartCount()} item(s) waiting</span></button><button onclick="roles()"><strong>${icon('plus')} Join another role</strong><span>Merchant, rider or field agent</span></button><button onclick="show('notifications')"><strong>${icon('bell')} Notifications</strong><span>Order and account updates</span></button><button onclick="show('help')"><strong>${icon('shield')} Help & support</strong><span>Get assistance from BUSIAN</span></button></div><div class="workspace-card" style="margin-top:16px"><div class="form-actions"><button class="secondary" type="button" onclick="busianLogout()">Sign out</button></div></div>`:`<div class="workspace-card"><div class="form-actions"><button class="primary" type="button" onclick="roles()">Sign in / Create account</button></div></div>`}</section>`;
+  }
+
+  window.busianLogout = async () => {
+    if(!window.busianSignOut) return false;
+    const { error } = await window.busianSignOut();
+    if(error){ toast(error.message || 'Could not sign out.'); return false; }
+    state.authSession=null;
+    state.authUser=null;
+    state.authReady=true;
+    state.role='customer';
+    safeSet('busian_preview_role','customer');
+    updateAuthUI();
+    toast('You have been signed out.');
+    renderHome();
+    return false;
+  };
 
   function renderWishlist(){setActiveNav('account');const items=state.wishlist.map(productById).filter(Boolean);app.innerHTML=`<section class="page-shell"><div class="section-heading"><span class="eyebrow">MY BUSIAN</span><h1>Wishlist</h1><p>Saved products will sync to your account when Supabase is connected.</p></div>${items.length?`<div class="product-grid wishlist-grid">${items.map(productCard).join('')}</div>`:`<div class="empty-state"><div class="empty-icon">${icon('heart')}</div><strong>Your wishlist is empty.</strong><p>Save products you want to revisit.</p><button class="primary" onclick="show('shop')">Browse products</button></div>`}</section>`;}
   function renderNotifications(){app.innerHTML=`<section class="page-shell"><div class="section-heading"><span class="eyebrow">NOTIFICATIONS</span><h1>Updates</h1><p>Live order, payment, delivery and account notifications will be stored in Supabase.</p></div><div class="empty-state compact"><div class="empty-icon">${icon('bell')}</div><strong>No notifications.</strong><p>You're up to date.</p></div></section>`;}
@@ -203,6 +240,16 @@ async function boot(){
   setupAccessibility();
   updateCartCount();
   renderDrawer();
+  await refreshAuthState();
+  if(window.busianOnAuthStateChange){
+    window.busianOnAuthStateChange((_event, session) => {
+      state.authSession = session || null;
+      state.authUser = session?.user || null;
+      state.authReady = true;
+      updateAuthUI();
+      if(!state.authUser && document.querySelector('.account-page')) renderAccount();
+    });
+  }
 
   const categories = await window.loadBusianCategories();
 
