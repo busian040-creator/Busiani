@@ -120,13 +120,10 @@
       if (mode === 'signup') {
         const name = document.getElementById('auth-name')?.value.trim();
         const phone = document.getElementById('auth-phone')?.value.trim();
-        result = await window.busianSignUp(email, password, {
-          {
-  data: {
-    full_name: name,
-    phone,
-    selected_role: role
-  },
+        result = result = await window.busianSignUp(email, password, {
+  emailRedirectTo: 'https://busian040-creator.github.io/Busiani/',
+  data: { full_name: name, phone, selected_role: role }
+});
   emailRedirectTo: 'https://busian040-creator.github.io/Busiani/'
 }
       } else {
